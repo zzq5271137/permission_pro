@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+        Spring-Mybatis整合
+    -->
+
+    <!-- 加载数据库属性文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!-- 配置连接池 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- 属性文件当中的名称不能和name名称一样 -->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!--
+            testOnBorrow:
+            指明是否在从池中取出连接前进行检验, 如果检验失败, 则从池中去除连接并尝试取出另一个;
+            注意: 设置为true后如果要生效, validationQuery参数必须设置为非空字符串;
+        -->
+        <property name="testOnBorrow" value="false"/>
+
+        <!--
+            testWhileIdle:
+            指明连接是否被空闲连接回收器(如果有)进行检验, 如果检测失败, 则连接将被从池中去除;
+            注意: 设置为true后如果要生效, validationQuery参数必须设置为非空字符串;
+        -->
+        <property name="testWhileIdle" value="true"/>
+
+        <!--
+            testOnReturn:
+            指明是否在归还到池中前进行检验;
+            注意: 设置为true后如果要生效, validationQuery参数必须设置为非空字符串;
+        -->
+        <property name="testOnReturn" value="false"/>
+
+        <!--
+            validationQuery:
+            SQL查询, 用来验证从连接池取出的连接, 在将连接返回给调用者之前;
+            如果指定, 则查询必须是一个SQL SELECT并且必须返回至少一行记录;
+        -->
+        <property name="validationQuery" value="select 1"/>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 开启注解事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- Mybatis的工厂 -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 核心配置文件的位置 -->
+        <property name="configLocation" value="classpath:sqlMappingConfig.xml"/>
+        <!--配置mapper映射文件的路径-->
+        <property name="mapperLocations" value="classpath:com.mycomp.mapper/*Mapper.xml"/>
+    </bean>
+
+    <!-- 配置Mapper接口扫描 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 配置Mapper扫描包 -->
+        <property name="basePackage" value="com.mycomp.mapper"/>
+    </bean>
+
+</beans>
