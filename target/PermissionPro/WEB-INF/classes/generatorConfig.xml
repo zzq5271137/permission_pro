@@ -5,8 +5,7 @@
 
 <!-- 配置Mybatis代码生成器 -->
 <generatorConfiguration>
-    <context id="mysql" defaultModelType="hierarchical"
-             targetRuntime="MyBatis3Simple">
+    <context id="mysql" defaultModelType="hierarchical" targetRuntime="MyBatis3Simple">
         <!--
 			自动识别数据库关键字, 默认false;
 			如果设置为true, 根据SqlReservedWords中定义的关键字列表;
@@ -19,12 +18,10 @@
         <property name="javaFileEncoding" value="UTF-8"/>
 
         <!-- 格式化java代码 -->
-        <property name="javaFormatter"
-                  value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
 
         <!-- 格式化XML代码 -->
-        <property name="xmlFormatter"
-                  value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
 
         <!--
         	beginningDelimiter和endingDelimiter:
@@ -51,8 +48,7 @@
             默认使用JavaTypeResolverDefaultImpl;
             注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和NUMERIC数据类型;
         -->
-        <javaTypeResolver
-                type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
             <!--
                 true: 使用BigDecimal对应DECIMAL和NUMERIC数据类型
                 false: 默认,
@@ -70,8 +66,7 @@
             targetProject: 把自动生成的domian放在哪个工程里面
             targetPackage: 哪个包下
         -->
-        <javaModelGenerator targetPackage="com.mycomp.domain"
-                            targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.mycomp.domain" targetProject="src/main/java">
             <!--
                 for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法, 构造方法包含了所有的field, 而不是使用setter;
@@ -95,8 +90,7 @@
             targetPackage: 把自动生成的mapper放在哪个工程里面
             targetProject: 哪个包下
         -->
-        <sqlMapGenerator targetPackage="com.mycomp.mapper"
-                         targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.mycomp.mapper" targetProject="src/main/java">
             <!--
                 在targetPackage的基础上, 根据数据库的schema再生成一层package, 最终生成的类放在这个package下;
                 默认为false
@@ -116,7 +110,7 @@
         <!--
             配置需要自动生成服务的表名和类名
         -->
-        <table tableName="employee">
+        <table tableName="department">
             <!-- 不使用驼峰命名 -->
             <property name="useActualColumnNames" value="true"/>
         </table>

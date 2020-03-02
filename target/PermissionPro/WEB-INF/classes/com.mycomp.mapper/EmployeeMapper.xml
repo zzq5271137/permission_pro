@@ -11,7 +11,12 @@
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="state" jdbcType="BIT" property="state"/>
         <result column="admin" jdbcType="BIT" property="admin"/>
-        <result column="dep_id" jdbcType="BIGINT" property="dep_id"/>
+
+        <association property="department" javaType="com.mycomp.domain.Department"
+                     columnPrefix="d_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
     </resultMap>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -57,15 +62,17 @@
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select id,
-               username,
-               inputtime,
-               tel,
-               email,
-               state,
-               admin,
-               dep_id
-        from employee
+        select e.id,
+               e.username,
+               e.inputtime,
+               e.tel,
+               e.email,
+               e.state,
+               e.admin,
+               d.id   as d_id,
+               d.name as d_name
+        from employee as e
+                 left join department d on e.dep_id = d.id
     </select>
 
 </mapper>

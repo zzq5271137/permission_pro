@@ -21,7 +21,7 @@ $(function () {
             }
         },
         onLoadSuccess: function (node, data) {
-            console.log(data[0].children[0].id);
+            // console.log(data[0].children[0].id);
             if (data.length > 0) {
                 // 找到第一个元素
                 let n = $('#tree').tree('find', data[0].children[0].id);

@@ -15,7 +15,72 @@
 </head>
 <body>
 
+<%-- 数据表格 --%>
 <table id="dg"></table>
+
+<%-- 对话框 --%>
+<div id="dialog">
+    <table align="center" style="border-spacing: 0 10px">
+        <tr>
+            <td>用户名:</td>
+            <td>
+                <input type="text" class="easyui-validatebox" data-options="required: true"
+                       name="username" placeholder="请输入用户名">
+            </td>
+        </tr>
+        <tr>
+            <td>密码:</td>
+            <td>
+                <input type="password" class="easyui-validatebox" required="required"
+                       name="password" placeholder="请输入密码">
+            </td>
+        </tr>
+        <tr>
+            <td>手机:</td>
+            <td>
+                <input type="text" name="tel" placeholder="请输入手机号">
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱:</td>
+            <td>
+                <input type="text" class="easyui-validatebox" data-options="validType:'email'"
+                       name="email" placeholder="请输入邮箱">
+            </td>
+        </tr>
+        <tr>
+            <td>入职日期:</td>
+            <td>
+                <input id="inputtime" type="text" class="easyui-datebox" editable="false"
+                       name="inputtime" placeholder="请选择入职日期">
+            </td>
+        </tr>
+        <tr>
+            <td>部门:</td>
+            <td>
+                <input id="department" editable="false" placeholder="请选择部门"/>
+            </td>
+        </tr>
+        <tr>
+            <td>是否是管理员:</td>
+            <td>
+                <input id="state" editable="false" placeholder="请选择是否是管理员" name="admin"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<%-- 工具栏 --%>
+<div id="tb">
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+       id="add">添加</a>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
+       id="edit">编辑</a>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
+       id="delete">删除</a>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true"
+       id="reload">刷新</a>
+</div>
 
 </body>
 </html>
