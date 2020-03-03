@@ -274,19 +274,23 @@ $(function () {
             return;
         }
 
+        // 判断该员工是否已经离职
+        if (rowData.state === false) {
+            $.messager.alert('温馨提示', '该员工已是离职状态, 不需要更改');
+            return;
+        }
+
         // 向用户确认, 是否真的要做这个操作
         $.messager.confirm('确认', '是否做离职操作', function (res) {
             if (res === true) {
-                // 判断该员工是否已经离职
-                if (rowData.state === false) {
-                    $.messager.alert('温馨提示', '该员工已是离职状态, 不需要更改');
-                    return;
-                }
-
                 // 使用AJAX发送GET请求, 修改员工的state
                 let url = '/softDeleteEmployee?id=' + rowData.id;
                 $.get(url, function (data) {
-                    // data = $.parseJSON(data); // 不需要解析
+                    /*
+                     * 这里不需要解析data (不需要$.parseJSON(data));
+                     * 因为使用AJAX的GET发送请求, 在接收服务器返回参数时会自动地将JSON字符串解析成JSON对象;
+                     * 而在上面的dialog的表单提交中, 需要解析JSON;
+                     */
                     if (data.success) {
                         $.messager.alert('温馨提示', data.msg);
                         $('#dg').datagrid('reload');

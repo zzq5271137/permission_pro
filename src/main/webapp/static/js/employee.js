@@ -274,15 +274,15 @@ $(function () {
             return;
         }
 
+        // 判断该员工是否已经离职
+        if (rowData.state === false) {
+            $.messager.alert('温馨提示', '该员工已是离职状态, 不需要更改');
+            return;
+        }
+
         // 向用户确认, 是否真的要做这个操作
         $.messager.confirm('确认', '是否做离职操作', function (res) {
             if (res === true) {
-                // 判断该员工是否已经离职
-                if (rowData.state === false) {
-                    $.messager.alert('温馨提示', '该员工已是离职状态, 不需要更改');
-                    return;
-                }
-
                 // 使用AJAX发送GET请求, 修改员工的state
                 let url = '/softDeleteEmployee?id=' + rowData.id;
                 $.get(url, function (data) {
