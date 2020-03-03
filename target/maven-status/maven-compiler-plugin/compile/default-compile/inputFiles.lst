@@ -1,0 +1,14 @@
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\domain\PageListRes.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\mapper\EmployeeMapper.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\web\controller\DepartmentController.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\service\impl\EmployeeServiceImpl.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\web\controller\MenuController.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\service\impl\DepartmentServiceImpl.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\domain\Employee.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\service\IEmployeeService.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\service\IDepartmentService.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\domain\Department.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\web\controller\EmployeeController.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\domain\AjaxRes.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\mapper\DepartmentMapper.java
+H:\IDEA_workspace\PermissionPro\src\main\java\com\mycomp\web\controller\RoleController.java

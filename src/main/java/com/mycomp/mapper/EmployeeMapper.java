@@ -6,14 +6,15 @@ import java.util.List;
 
 public interface EmployeeMapper {
 
-    int deleteByPrimaryKey(Long id);
+    List<Employee> selectAll();
 
-    int insert(Employee record);
+    void insert(Employee record);
+
+    void updateByPrimaryKey(Employee record);
+
+    void softDeleteByPrimaryKey(Long id);
 
     Employee selectByPrimaryKey(Long id);
 
-    List<Employee> selectAll();
-
-    int updateByPrimaryKey(Employee record);
-
+    int deleteByPrimaryKey(Long id);
 }

@@ -1,0 +1,14 @@
+com\mycomp\domain\PageListRes.class
+com\mycomp\domain\Department.class
+com\mycomp\domain\AjaxRes.class
+com\mycomp\domain\Employee.class
+com\mycomp\service\impl\EmployeeServiceImpl.class
+com\mycomp\web\controller\EmployeeController.class
+com\mycomp\mapper\DepartmentMapper.class
+com\mycomp\service\IEmployeeService.class
+com\mycomp\service\impl\DepartmentServiceImpl.class
+com\mycomp\web\controller\RoleController.class
+com\mycomp\mapper\EmployeeMapper.class
+com\mycomp\service\IDepartmentService.class
+com\mycomp\web\controller\DepartmentController.class
+com\mycomp\web\controller\MenuController.class

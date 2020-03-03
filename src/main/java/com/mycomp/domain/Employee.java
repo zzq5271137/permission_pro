@@ -16,6 +16,8 @@ public class Employee {
 
     private String username;
 
+    private String password;
+
     /*
      * 日期的格式化:
      * 1. @JsonFormat: 从数据库查询后, 格式化日期, 返回给页面;

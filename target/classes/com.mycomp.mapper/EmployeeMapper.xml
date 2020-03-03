@@ -3,9 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycomp.mapper.EmployeeMapper">
+
     <resultMap id="BaseResultMap" type="com.mycomp.domain.Employee">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="inputtime" jdbcType="TIMESTAMP" property="inputtime"/>
         <result column="tel" jdbcType="VARCHAR" property="tel"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
@@ -19,51 +21,10 @@
         </association>
     </resultMap>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete
-        from employee
-        where id = #{id,jdbcType=BIGINT}
-    </delete>
-
-    <insert id="insert" parameterType="com.mycomp.domain.Employee">
-        insert into employee (id, username, inputtime,
-                              tel, email, state, admin,
-                              dep_id)
-        values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR},
-                #{inputtime,jdbcType=TIMESTAMP},
-                #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{state,jdbcType=BIT},
-                #{admin,jdbcType=BIT},
-                #{dep_id,jdbcType=BIGINT})
-    </insert>
-
-    <update id="updateByPrimaryKey" parameterType="com.mycomp.domain.Employee">
-        update employee
-        set username  = #{username,jdbcType=VARCHAR},
-            inputtime = #{inputtime,jdbcType=TIMESTAMP},
-            tel       = #{tel,jdbcType=VARCHAR},
-            email     = #{email,jdbcType=VARCHAR},
-            state     = #{state,jdbcType=BIT},
-            admin     = #{admin,jdbcType=BIT},
-            dep_id    = #{dep_id,jdbcType=BIGINT}
-        where id = #{id,jdbcType=BIGINT}
-    </update>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select id,
-               username,
-               inputtime,
-               tel,
-               email,
-               state,
-               admin,
-               dep_id
-        from employee
-        where id = #{id,jdbcType=BIGINT}
-    </select>
-
     <select id="selectAll" resultMap="BaseResultMap">
         select e.id,
                e.username,
+               e.password,
                e.inputtime,
                e.tel,
                e.email,
@@ -74,5 +35,55 @@
         from employee as e
                  left join department d on e.dep_id = d.id
     </select>
+
+    <insert id="insert" parameterType="com.mycomp.domain.Employee">
+        insert into employee (id, username, password, inputtime,
+                              tel, email, state, admin,
+                              dep_id)
+        values (#{id}, #{username}, #{password}, #{inputtime},
+                #{tel}, #{email}, #{state}, #{admin},
+                #{department.id})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.mycomp.domain.Employee">
+        update employee
+        set username  = #{username},
+            password  = #{password},
+            inputtime = #{inputtime},
+            tel       = #{tel},
+            email     = #{email},
+            state     = #{state},
+            admin     = #{admin},
+            dep_id    = #{department.id}
+        where id = #{id}
+    </update>
+
+    <update id="softDeleteByPrimaryKey">
+        update employee
+        set state = false
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select e.id,
+               e.username,
+               e.password,
+               e.inputtime,
+               e.tel,
+               e.email,
+               e.state,
+               e.admin,
+               d.id   as d_id,
+               d.name as d_name
+        from employee as e
+                 left join department d on e.dep_id = d.id
+        where e.id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from employee
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
 
 </mapper>
