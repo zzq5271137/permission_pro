@@ -10,8 +10,7 @@
 <head>
     <title>Permission Project</title>
     <%@include file="/static/common/common.jsp" %>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/static/js/index.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/index.js"></script>
 </head>
 <body class="easyui-layout">
 
@@ -23,8 +22,7 @@
 <%-- 中间左侧 --%>
 <div data-options="region:'west',split:true" style="width:300px;">
     <div id="aa" class="easyui-accordion" data-options="fit:true">
-        <div title="菜单" data-options="iconCls:'icon-save',selected:true"
-             style="overflow:auto;padding:10px;">
+        <div title="菜单" data-options="iconCls:'icon-save',selected:true" style="overflow:auto;padding:10px;">
             <ul id="tree"></ul>
         </div>
         <div title="公告" data-options="iconCls:'icon-reload'" style="padding:10px;">

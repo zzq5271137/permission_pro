@@ -2,6 +2,7 @@ package com.mycomp.web.controller;
 
 import com.mycomp.domain.AjaxRes;
 import com.mycomp.domain.Employee;
+import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
 import com.mycomp.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class EmployeeController {
 
     @RequestMapping("/employeelist")
     @ResponseBody  // 返回json数据
-    public PageListRes employeelist() {
-        return employeeService.getAllEmployees();
+    public PageListRes employeelist(EmployeelistQueryVo queryVo) {
+        return employeeService.getAllEmployees(queryVo);
     }
 
     @RequestMapping("/saveEmployee")

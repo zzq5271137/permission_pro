@@ -10,8 +10,7 @@
 <head>
     <title>employee</title>
     <%@include file="/static/common/common.jsp" %>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/static/js/employee.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/employee.js"></script>
 </head>
 <body>
 
@@ -92,6 +91,10 @@
        id="delete">离职</a>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true"
        id="reload">刷新</a>
+
+    <%-- 搜索框 --%>
+    <input type="text" name="keyword" style="width: 200px; height: 30px; padding-left: 5px;">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="searchbtn">搜索</a>
 </div>
 
 </body>

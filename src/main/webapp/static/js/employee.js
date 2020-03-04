@@ -76,6 +76,16 @@ $(function () {
         singleSelect: true,
         striped: true,
         toolbar: '#tb',
+        onClickRow: function (rowIndex, rowData) {
+            // easy-ui本身的enable和disable有bug(disable后仍可以点击), 需要使用一个插件(详见base.js)
+            if (rowData.state === false) {
+                // 禁用离职按钮
+                $('#delete').linkbutton('disable');
+            } else {
+                // 启用离职按钮
+                $('#delete').linkbutton('enable');
+            }
+        }
     });
 
     // 部门选择下拉列表
@@ -299,6 +309,17 @@ $(function () {
                     }
                 });
             }
+        });
+    });
+
+    // 监听搜索按钮
+    $('#searchbtn').click(function () {
+        // 获取搜索框内容
+        let keyword = $('[name="keyword"]').val();
+
+        // 重新加载列表, 并把keyword传过去
+        $('#dg').datagrid('load', {
+            keyword: keyword
         });
     });
 });

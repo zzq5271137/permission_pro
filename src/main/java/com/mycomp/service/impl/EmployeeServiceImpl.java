@@ -3,6 +3,7 @@ package com.mycomp.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.mycomp.domain.Employee;
+import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
@@ -21,12 +22,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private EmployeeMapper employeeMapper;
 
     @Override
-    public PageListRes getAllEmployees() {
-        // 设置分页
-        Page<Object> page = PageHelper.startPage(1, 10);
+    public PageListRes getAllEmployees(EmployeelistQueryVo queryVo) {
+        /*
+         * 设置分页:
+         * 根据easy-ui的分页器传过来的参数动态地设置分页;
+         * 这样做, 会使从数据库查询出来的分页与前端页面上的分页保持一致;
+         */
+        Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getRows());
 
         // 从dao层查询所有employee
-        List<Employee> employees = employeeMapper.selectAll();
+        List<Employee> employees = employeeMapper.selectAll(queryVo);
 
         // 封装成PageListRes对象
         PageListRes pageListRes = new PageListRes();

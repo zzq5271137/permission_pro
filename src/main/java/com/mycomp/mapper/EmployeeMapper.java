@@ -1,12 +1,13 @@
 package com.mycomp.mapper;
 
 import com.mycomp.domain.Employee;
+import com.mycomp.domain.EmployeelistQueryVo;
 
 import java.util.List;
 
 public interface EmployeeMapper {
 
-    List<Employee> selectAll();
+    List<Employee> selectAll(EmployeelistQueryVo queryVo);
 
     void insert(Employee record);
 
