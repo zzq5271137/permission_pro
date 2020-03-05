@@ -284,12 +284,6 @@ $(function () {
             return;
         }
 
-        // 判断该员工是否已经离职
-        if (rowData.state === false) {
-            $.messager.alert('温馨提示', '该员工已是离职状态, 不需要更改');
-            return;
-        }
-
         // 向用户确认, 是否真的要做这个操作
         $.messager.confirm('确认', '是否做离职操作', function (res) {
             if (res === true) {
@@ -312,8 +306,8 @@ $(function () {
         });
     });
 
-    // 监听搜索按钮
-    $('#searchbtn').click(function () {
+    // 搜索
+    function search() {
         // 获取搜索框内容
         let keyword = $('[name="keyword"]').val();
 
@@ -321,5 +315,26 @@ $(function () {
         $('#dg').datagrid('load', {
             keyword: keyword
         });
+    }
+
+    // 监听搜索按钮
+    $('#searchbtn').click(function () {
+        search();
+    });
+
+    // 监听搜索框回车键按下
+    $('[name="keyword"]').keydown(function (e) {
+        if (e.keyCode === 13 || e.keyCode === 108) {
+            search();
+        }
+    });
+
+    // 监听刷新按钮
+    $('#reload').click(function () {
+        // 清空搜索框内容
+        $('[name="keyword"]').val('');
+
+        // 重新加载数据表格
+        $('#dg').datagrid('load', {});
     });
 });
