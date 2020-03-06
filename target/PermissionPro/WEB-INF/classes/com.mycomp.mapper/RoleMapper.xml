@@ -39,6 +39,12 @@
         where rid = #{rid,jdbcType=BIGINT}
     </update>
 
+    <delete id="deleteEmployeeRoleRel">
+        delete
+        from employee_role_rel
+        where rid = #{rid}
+    </delete>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from role

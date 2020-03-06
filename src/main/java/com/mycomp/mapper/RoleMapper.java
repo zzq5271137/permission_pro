@@ -17,7 +17,9 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
 
-    int deleteByPrimaryKey(Long rid);
+    void deleteEmployeeRoleRel(Long rid);
+
+    void deleteByPrimaryKey(Long rid);
 
     Role selectByPrimaryKey(Long rid);
 }

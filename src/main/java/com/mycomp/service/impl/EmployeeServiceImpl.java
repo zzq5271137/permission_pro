@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
+import com.mycomp.domain.Role;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public void saveEmployee(Employee employee) {
+        // 1. 保存员工
         employeeMapper.insert(employee);
+
+        // 2. 保存员工与角色的关系
+        for (Role role : employee.getRoles()) {
+            employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+        }
     }
 
     @Override

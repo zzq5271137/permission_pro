@@ -155,4 +155,26 @@ $(function () {
         options.url = '/getPermissionsByRoleId?rid=' + rowData.rid;
         $('#role_data2').datagrid('load');
     });
+
+    $('#remove').click(function () {
+        let rowData = $('#role_dg').datagrid('getSelected');
+        if (!rowData) {
+            $.messager.alert('温馨提示', '请先选中一条数据');
+            return;
+        }
+
+        $.messager.confirm('确认', '是否删除该角色', function (res) {
+            if (res === true) {
+                let url = '/deleteRole?rid=' + rowData.rid;
+                $.get(url, function (data) {
+                    if (data.success) {
+                        $.messager.alert('温馨提示', data.msg);
+                        $('#role_dg').datagrid('reload');
+                    } else {
+                        $.messager.alert('温馨提示', data.msg);
+                    }
+                })
+            }
+        })
+    });
 });

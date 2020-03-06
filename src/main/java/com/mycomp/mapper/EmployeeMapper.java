@@ -2,6 +2,7 @@ package com.mycomp.mapper;
 
 import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface EmployeeMapper {
     void updateByPrimaryKey(Employee record);
 
     void softDeleteByPrimaryKey(Long id);
+
+    void insertEmployeeRoleRel(@Param("eid") Long eid, @Param("rid") Long rid);
 
     Employee selectByPrimaryKey(Long id);
 

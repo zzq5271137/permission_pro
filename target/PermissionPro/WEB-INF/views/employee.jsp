@@ -78,6 +78,12 @@
                     <input id="state" editable="false" placeholder="请选择状态" name="state"/>
                 </td>
             </tr>
+            <tr>
+                <td>选择角色:</td>
+                <td>
+                    <input id="role" editable="false" placeholder="请选择角色" name="role.rid"/>
+                </td>
+            </tr>
         </table>
     </form>
 </div>

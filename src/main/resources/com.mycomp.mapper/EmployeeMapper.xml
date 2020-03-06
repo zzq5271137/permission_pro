@@ -19,6 +19,12 @@
             <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+
+        <collection property="roles" javaType="list" ofType="com.mycomp.domain.Role">
+            <id column="rid" property="rid"/>
+            <result column="rnum" property="rnum"/>
+            <result column="rname" property="rname"/>
+        </collection>
     </resultMap>
 
     <!-- 搜索查询的sql片段 -->
@@ -43,14 +49,20 @@
         e.state,
         e.admin,
         d.id as d_id,
-        d.name as d_name
+        d.name as d_name,
+        r.rid,
+        r.rnum,
+        r.rname
         from employee as e
         left join department d on e.dep_id = d.id
+        left join employee_role_rel err on e.id = err.eid
+        left join role r on err.rid = r.rid
         <include refid="where_sql"/>
         order by e.id
     </select>
 
-    <insert id="insert" parameterType="com.mycomp.domain.Employee">
+    <insert id="insert" parameterType="com.mycomp.domain.Employee"
+            useGeneratedKeys="true" keyProperty="id">
         insert into employee (id, username, password, inputtime,
                               tel, email, state, admin,
                               dep_id)
@@ -77,6 +89,11 @@
         set state = false
         where id = #{id}
     </update>
+
+    <insert id="insertEmployeeRoleRel">
+        insert into employee_role_rel (eid, rid)
+        values (#{eid}, #{rid})
+    </insert>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select e.id,

@@ -60,6 +60,26 @@ $(function () {
                 }
             },
             {
+                field: 'roles',
+                title: '角色',
+                width: 100,
+                align: 'center',
+                formatter: function (value, row, index) {
+                    if (value === null) {
+                        return '';
+                    }
+                    let show = '';
+                    for (let i = 0; i < value.length; i++) {
+                        let role = value[i];
+                        show += role.rname;
+                        if (i !== value.length - 1) {
+                            show += ', ';
+                        }
+                    }
+                    return show;
+                }
+            },
+            {
                 field: 'state',
                 title: '状态',
                 width: 100,
@@ -178,10 +198,31 @@ $(function () {
         }
     });
 
+    // 角色选择下拉列表
+    $('#role').combobox({
+        width: 160,
+        panelHeight: 'auto',
+        editable: false,
+        url: '/getAllRoles',
+        textField: 'rname',
+        valueField: 'rid',
+        multiple: true, // 支持多选
+        // 数据加载完毕之后设置placeholder
+        onLoadSuccess: function () {
+            $('#role').each(function (index, element) {
+                let span = $(this).siblings('span')[index];
+                let targetInput = $(span).find('input:first');
+                if (targetInput) {
+                    $(targetInput).attr('placeholder', $(this).attr('placeholder'));
+                }
+            });
+        }
+    });
+
     // 对话框
     $('#dialog').dialog({
         width: 400,
-        height: 400,
+        height: 430,
         modal: true,
         resizable: true,
         closed: true,
@@ -202,6 +243,13 @@ $(function () {
                     // 提交表单
                     $('#employeeForm').form('submit', {
                         url: url,
+                        // 提交表单时, 如果有额外的参数, 可以通过onSubmit中的param来提交
+                        onSubmit: function (param) {
+                            let values = $('#role').combobox('getValues');
+                            for (let i = 0; i < values.length; i++) {
+                                param['roles[' + i + '].rid'] = values[i];
+                            }
+                        },
                         success: function (data) {
                             // 将服务器返回的数据解析成json
                             data = $.parseJSON(data);

@@ -22,7 +22,7 @@ public class RoleServiceImpl implements IRoleService {
     private RoleMapper roleMapper;
 
     @Override
-    public PageListRes getAllRoles(RoleQueryVo queryVo) {
+    public PageListRes getRolelist(RoleQueryVo queryVo) {
         Page<Object> page = PageHelper.startPage(queryVo.getPage(), queryVo.getRows());
         List<Role> roles = roleMapper.selectAll();
         PageListRes pageListRes = new PageListRes();
@@ -54,6 +54,23 @@ public class RoleServiceImpl implements IRoleService {
         for (Permission permission : role.getPermissions()) {
             roleMapper.insertRolePermissionRel(role.getRid(), permission.getPid());
         }
+    }
+
+    @Override
+    public void deleteRole(Long rid) {
+        // 1. 先打破角色与权限原来的关系
+        roleMapper.deleteRolePermissionRel(rid);
+
+        // 2. 还要打破角色与员工原来的关系
+        roleMapper.deleteEmployeeRoleRel(rid);
+
+        // 3. 再删除角色
+        roleMapper.deleteByPrimaryKey(rid);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleMapper.selectAll();
     }
 
 }

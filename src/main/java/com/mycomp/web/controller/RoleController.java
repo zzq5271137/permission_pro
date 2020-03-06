@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class RoleController {
 
@@ -24,7 +26,7 @@ public class RoleController {
     @RequestMapping("/rolelist")
     @ResponseBody
     public PageListRes rolelist(RoleQueryVo queryVo) {
-        return roleService.getAllRoles(queryVo);
+        return roleService.getRolelist(queryVo);
     }
 
     @RequestMapping("/saveRole")
@@ -55,5 +57,26 @@ public class RoleController {
             ajaxRes.setMsg("更新失败...");
         }
         return ajaxRes;
+    }
+
+    @RequestMapping("/deleteRole")
+    @ResponseBody
+    public AjaxRes deleteRole(Long rid) {
+        AjaxRes ajaxRes = new AjaxRes();
+        try {
+            roleService.deleteRole(rid);
+            ajaxRes.setSuccess(true);
+            ajaxRes.setMsg("删除成功！");
+        } catch (Exception e) {
+            ajaxRes.setSuccess(false);
+            ajaxRes.setMsg("删除失败...");
+        }
+        return ajaxRes;
+    }
+
+    @RequestMapping("/getAllRoles")
+    @ResponseBody
+    public List<Role> getAllRoles() {
+        return roleService.getAllRoles();
     }
 }
