@@ -7,9 +7,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80483978-1565-495d-b5fe-42edea264a37" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.mycomp.mapper/EmployeeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com.mycomp.mapper/EmployeeMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/domain/Permission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/domain/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/domain/RoleQueryVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/mapper/PermissionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/mapper/RoleMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/service/IPermissionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/service/IRoleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/service/impl/PermissionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/web/controller/PermissionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com.mycomp.mapper/PermissionMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com.mycomp.mapper/RoleMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/role.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycomp/web/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycomp/web/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/employee.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/employee.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/role.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/role.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/employee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/classes/com/mycomp/web/controller/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/classes/com/mycomp/web/controller/RoleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/classes/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/classes/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/views/employee.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/views/employee.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/views/role.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/WEB-INF/views/role.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PermissionPro/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/PermissionPro/static/js/employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/PermissionPro/static/js/employee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycomp/web/controller/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycomp/web/controller/RoleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/generatorConfig.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +69,13 @@
         <item name="permissionpro" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="permissionpro: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="permissionpro" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="permissionpro: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="role: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -359,7 +390,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
             </expand>
             <select />
@@ -392,7 +423,9 @@
       <workItem from="1583297370815" duration="1508000" />
       <workItem from="1583330409332" duration="115000" />
       <workItem from="1583335698703" duration="16000" />
-      <workItem from="1583399099543" duration="1956000" />
+      <workItem from="1583399099543" duration="2908000" />
+      <workItem from="1583402047287" duration="4204000" />
+      <workItem from="1583479418841" duration="14232000" />
     </task>
     <servers />
   </component>
@@ -411,42 +444,42 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1583131459207" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1583246765375">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1583510270599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583246765375" />
-    <state width="1277" height="319" key="GridCell.Tab.0.bottom" timestamp="1583401065126">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583510270599" />
+    <state width="1277" height="339" key="GridCell.Tab.0.bottom" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
-    <state width="1277" height="319" key="GridCell.Tab.0.center" timestamp="1583401065125">
+    <state width="1277" height="339" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.0.center" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583401065125" />
-    <state width="1277" height="319" key="GridCell.Tab.0.left" timestamp="1583401065125">
+    <state width="1277" height="339" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.0.left" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583401065125" />
-    <state width="1277" height="319" key="GridCell.Tab.0.right" timestamp="1583401065126">
+    <state width="1277" height="339" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.0.right" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
-    <state width="1277" height="319" key="GridCell.Tab.1.bottom" timestamp="1583401065126">
+    <state width="1277" height="339" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.1.bottom" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
-    <state width="1277" height="319" key="GridCell.Tab.1.center" timestamp="1583401065126">
+    <state width="1277" height="339" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.1.center" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
-    <state width="1277" height="319" key="GridCell.Tab.1.left" timestamp="1583401065126">
+    <state width="1277" height="339" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.1.left" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
-    <state width="1277" height="319" key="GridCell.Tab.1.right" timestamp="1583401065126">
+    <state width="1277" height="339" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
+    <state width="1277" height="339" key="GridCell.Tab.1.right" timestamp="1583511450925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1277" height="319" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1583401065126" />
+    <state width="1277" height="339" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1583511450925" />
     <state width="1277" height="320" key="GridCell.Tab.2.bottom" timestamp="1583167926098">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

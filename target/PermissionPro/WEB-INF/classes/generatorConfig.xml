@@ -110,7 +110,7 @@
         <!--
             配置需要自动生成服务的表名和类名
         -->
-        <table tableName="department">
+        <table tableName="role">
             <!-- 不使用驼峰命名 -->
             <property name="useActualColumnNames" value="true"/>
         </table>

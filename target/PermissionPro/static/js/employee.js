@@ -1,6 +1,6 @@
 $(function () {
     // 初始化表格数据
-    $('#dg').datagrid({
+    $('#employee_dg').datagrid({
         url: '/employeelist',
         columns: [[
             {
@@ -80,10 +80,10 @@ $(function () {
             // easy-ui本身的enable和disable有bug(disable后仍可以点击), 需要使用一个插件(详见base.js)
             if (rowData.state === false) {
                 // 禁用离职按钮
-                $('#delete').linkbutton('disable');
+                $('#remove').linkbutton('disable');
             } else {
                 // 启用离职按钮
-                $('#delete').linkbutton('enable');
+                $('#remove').linkbutton('enable');
             }
         }
     });
@@ -210,7 +210,7 @@ $(function () {
                                 // 提示信息
                                 $.messager.alert('温馨提示', data.msg);
                                 // 重新加载表格数据
-                                $('#dg').datagrid('reload');
+                                $('#employee_dg').datagrid('reload');
                                 // 关闭对话框
                                 $('#dialog').dialog('close');
                             } else {
@@ -246,7 +246,7 @@ $(function () {
     // 监听编辑按钮
     $('#edit').click(function () {
         // 先判断是否选择了数据
-        let rowData = $('#dg').datagrid('getSelected');
+        let rowData = $('#employee_dg').datagrid('getSelected');
         if (!rowData) {
             $.messager.alert('温馨提示', '请先选中一条数据');
             return;
@@ -276,9 +276,9 @@ $(function () {
     });
 
     // 监听离职按钮(不是真正的删除员工数据, 而是将员工状态设置为离职, 称作软删除)
-    $('#delete').click(function () {
+    $('#remove').click(function () {
         // 先判断是否选择了数据
-        let rowData = $('#dg').datagrid('getSelected');
+        let rowData = $('#employee_dg').datagrid('getSelected');
         if (!rowData) {
             $.messager.alert('温馨提示', '请先选中一条数据');
             return;
@@ -297,7 +297,7 @@ $(function () {
                      */
                     if (data.success) {
                         $.messager.alert('温馨提示', data.msg);
-                        $('#dg').datagrid('reload');
+                        $('#employee_dg').datagrid('reload');
                     } else {
                         $.messager.alert('温馨提示', data.msg);
                     }
@@ -312,7 +312,7 @@ $(function () {
         let keyword = $('[name="keyword"]').val();
 
         // 重新加载列表, 并把keyword传过去
-        $('#dg').datagrid('load', {
+        $('#employee_dg').datagrid('load', {
             keyword: keyword
         });
     }
@@ -335,6 +335,6 @@ $(function () {
         $('[name="keyword"]').val('');
 
         // 重新加载数据表格
-        $('#dg').datagrid('load', {});
+        $('#employee_dg').datagrid('load', {});
     });
 });

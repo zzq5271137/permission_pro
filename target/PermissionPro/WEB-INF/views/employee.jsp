@@ -10,12 +10,13 @@
 <head>
     <title>employee</title>
     <%@include file="/static/common/common.jsp" %>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/employee.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/static/js/employee.js"></script>
 </head>
 <body>
 
 <%-- 数据表格 --%>
-<table id="dg"></table>
+<table id="employee_dg"></table>
 
 <%-- 对话框 --%>
 <div id="dialog">
@@ -88,7 +89,7 @@
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
        id="edit">编辑</a>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
-       id="delete">离职</a>
+       id="remove">离职</a>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true"
        id="reload">刷新</a>
 
