@@ -79,4 +79,10 @@ public class RoleController {
     public List<Role> getAllRoles() {
         return roleService.getAllRoles();
     }
+
+    @RequestMapping("/getRolesByEmployeeId")
+    @ResponseBody
+    public List<Long> getRolesByEmployeeId(Long id) {
+        return roleService.getRolesByEmployeeId(id);
+    }
 }

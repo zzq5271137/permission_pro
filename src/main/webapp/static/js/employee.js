@@ -319,6 +319,13 @@ $(function () {
         }
         rowData['state'] = rowData['state'] + '';
 
+        // 角色列表的回显
+        let url = 'getRolesByEmployeeId?id=' + rowData.id;
+        $.get(url, function (data) {
+            // 设置下拉列表输入框的值
+            $('#role').combobox('setValues', data);
+        });
+
         // 需要做数据的回显 (load方法根据同名匹配的原则进行数据填充)
         $('#employeeForm').form('load', rowData);
     });

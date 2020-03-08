@@ -51,6 +51,12 @@
         where rid = #{rid,jdbcType=BIGINT}
     </delete>
 
+    <select id="getRolesByEmployeeId" resultType="Long">
+        select rid
+        from employee_role_rel
+        where eid = #{id}
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select rid, rnum, rname
         from role

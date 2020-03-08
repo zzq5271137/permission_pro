@@ -73,4 +73,9 @@ public class RoleServiceImpl implements IRoleService {
         return roleMapper.selectAll();
     }
 
+    @Override
+    public List<Long> getRolesByEmployeeId(Long id) {
+        return roleMapper.getRolesByEmployeeId(id);
+    }
+
 }

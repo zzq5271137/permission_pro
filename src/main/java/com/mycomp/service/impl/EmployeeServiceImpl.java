@@ -55,7 +55,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public void updateEmployee(Employee employee) {
+        // 1. 先打破员工与角色原来的关系
+        employeeMapper.deleteEmployeeRoleRel(employee.getId());
+
+        // 2. 更新员工信息
         employeeMapper.updateByPrimaryKey(employee);
+
+        // 3. 再重新建立关系
+        for (Role role : employee.getRoles()) {
+            employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+        }
     }
 
     @Override

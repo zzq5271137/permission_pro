@@ -21,5 +21,7 @@ public interface RoleMapper {
 
     void deleteByPrimaryKey(Long rid);
 
+    List<Long> getRolesByEmployeeId(Long id);
+
     Role selectByPrimaryKey(Long rid);
 }

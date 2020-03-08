@@ -95,6 +95,12 @@
         values (#{eid}, #{rid})
     </insert>
 
+    <delete id="deleteEmployeeRoleRel">
+        delete
+        from employee_role_rel
+        where eid = #{id}
+    </delete>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select e.id,
                e.username,

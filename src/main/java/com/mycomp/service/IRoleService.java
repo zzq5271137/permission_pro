@@ -17,4 +17,6 @@ public interface IRoleService {
     void deleteRole(Long rid);
 
     List<Role> getAllRoles();
+
+    List<Long> getRolesByEmployeeId(Long id);
 }

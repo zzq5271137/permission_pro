@@ -18,6 +18,8 @@ public interface EmployeeMapper {
 
     void insertEmployeeRoleRel(@Param("eid") Long eid, @Param("rid") Long rid);
 
+    void deleteEmployeeRoleRel(Long id);
+
     Employee selectByPrimaryKey(Long id);
 
     int deleteByPrimaryKey(Long id);
