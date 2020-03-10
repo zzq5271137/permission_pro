@@ -5,6 +5,7 @@ import com.mycomp.domain.PageListRes;
 import com.mycomp.domain.Role;
 import com.mycomp.domain.RoleQueryVo;
 import com.mycomp.service.IRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class RoleController {
     @Autowired
     private IRoleService roleService;
 
+    @RequiresPermissions("role:index")
     @RequestMapping("/role")
     public String role() {
         return "role";
@@ -29,6 +31,7 @@ public class RoleController {
         return roleService.getRolelist(queryVo);
     }
 
+    @RequiresPermissions("role:add")
     @RequestMapping("/saveRole")
     @ResponseBody
     public AjaxRes saveRole(Role role) {
@@ -44,6 +47,7 @@ public class RoleController {
         return ajaxRes;
     }
 
+    @RequiresPermissions("role:edit")
     @RequestMapping("/updateRole")
     @ResponseBody
     public AjaxRes updateRole(Role role) {
@@ -59,6 +63,7 @@ public class RoleController {
         return ajaxRes;
     }
 
+    @RequiresPermissions("role:delete")
     @RequestMapping("/deleteRole")
     @ResponseBody
     public AjaxRes deleteRole(Long rid) {

@@ -22,6 +22,10 @@ public interface EmployeeMapper {
 
     Employee getEmployeeByUsername(String username);
 
+    List<String> getRolesByEmployeeId(Long id);
+
+    List<String> getPermissionsByEmployeeId(Long id);
+
     Employee selectByPrimaryKey(Long id);
 
     int deleteByPrimaryKey(Long id);

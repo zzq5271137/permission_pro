@@ -281,6 +281,8 @@ $(function () {
     // 监听添加按钮
     $('#add').click(function () {
         // $('[name="password"]').validatebox({required: true}); // 取消password的必写验证
+        // 显示密码输入框
+        $('#password').show();
         // 隐藏状态下拉列表
         $('#stateinput').hide();
         // 清空表单
@@ -301,6 +303,8 @@ $(function () {
         }
 
         // $('[name="password"]').validatebox({required: false}); // 取消password的必写验证
+        // 隐藏密码输入框
+        $('#password').hide();
         // 显示状态下拉列表
         $('#stateinput').show();
         // 清空表单
@@ -350,6 +354,10 @@ $(function () {
                      * 因为使用AJAX的GET发送请求, 在接收服务器返回参数时会自动地将JSON字符串解析成JSON对象;
                      * 而在上面的dialog的表单提交中, 需要解析JSON;
                      */
+                    if (typeof data === 'string') {
+                        data = $.parseJSON(data);
+                    }
+
                     if (data.success) {
                         $.messager.alert('温馨提示', data.msg);
                         $('#employee_dg').datagrid('reload');

@@ -54,12 +54,18 @@
 
 <%-- 工具栏 --%>
 <div id="tb">
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
-       id="add">添加</a>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
-       id="edit">编辑</a>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
-       id="remove">删除</a>
+    <shiro:hasPermission name="role:add">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+           id="add">添加</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="role:edit">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
+           id="edit">编辑</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="role:delete">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
+           id="remove">删除</a>
+    </shiro:hasPermission>
 </div>
 
 </body>

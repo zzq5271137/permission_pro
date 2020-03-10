@@ -167,6 +167,10 @@ $(function () {
             if (res === true) {
                 let url = '/deleteRole?rid=' + rowData.rid;
                 $.get(url, function (data) {
+                    if (typeof data === 'string') {
+                        data = $.parseJSON(data);
+                    }
+
                     if (data.success) {
                         $.messager.alert('温馨提示', data.msg);
                         $('#role_dg').datagrid('reload');

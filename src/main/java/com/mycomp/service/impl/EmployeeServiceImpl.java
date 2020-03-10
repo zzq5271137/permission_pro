@@ -8,6 +8,7 @@ import com.mycomp.domain.PageListRes;
 import com.mycomp.domain.Role;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public void saveEmployee(Employee employee) {
+        /*
+         * 保存之前, 需要对密码进行加密处理, 加密参数如下:
+         * a. 加密算法: md5
+         * b: 散列次数: 2
+         * c. 盐: 用户名
+         *
+         * 在Shiro做登录认证时, 也需要加密处理:
+         * (1). 在配置文件中配置一个凭证匹配器, 告知其加密算法和散列次数(详见application-shiro.xml);
+         * (2). 在自定义Realm中加入盐(详见EmployeeRealm.java);
+         */
+        Md5Hash pwdMd5Hash = new Md5Hash(employee.getPassword(), employee.getUsername(), 2);
+        employee.setPassword(pwdMd5Hash.toString());
+
         // 1. 保存员工
         employeeMapper.insert(employee);
 
@@ -75,6 +89,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public Employee getEmployeeByUsername(String username) {
         return employeeMapper.getEmployeeByUsername(username);
+    }
+
+    @Override
+    public List<String> getRolesByEmployeeId(Long id) {
+        return employeeMapper.getRolesByEmployeeId(id);
+    }
+
+    @Override
+    public List<String> getPermissionsByEmployeeId(Long id) {
+        return employeeMapper.getPermissionsByEmployeeId(id);
     }
 
 }

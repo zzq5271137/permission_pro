@@ -19,7 +19,7 @@
 
     <!-- 配置Shiro过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <!-- 设置安全管理器 -->
+        <!-- 注入安全管理器 -->
         <property name="securityManager" ref="securityManager"/>
 
         <!--
@@ -52,24 +52,48 @@
         </property>
     </bean>
 
-    <!-- 配置Shiro安全管理器(SecurityManager) -->
+    <!-- 配置Shiro安全管理器(SecurityManager), 并注入到Shiro过滤器中(ShiroFilter) -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- 注入自定义Realm -->
         <property name="realm" ref="employeeRealm"/>
+        <!-- 注入缓存管理器 -->
+        <property name="cacheManager" ref="ehCacheManager"/>
     </bean>
 
-    <!-- 配置自定义Realm, 并将其交由安全管理器(SecurityManager) -->
-    <bean id="employeeRealm" class="com.mycomp.web.realm.EmployeeRealm"/>
+    <!-- 配置自定义Realm, 并注入到安全管理器中(SecurityManager) -->
+    <bean id="employeeRealm" class="com.mycomp.web.realm.EmployeeRealm">
+        <!-- 注入凭证匹配器 -->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
 
-    <!-- 配置自定义表单监听过滤器, 用来返回认证结果 -->
+    <!-- 配置自定义表单监听过滤器, 用来返回认证结果, 并注入到Shiro过滤器中(ShiroFilter) -->
     <bean id="loginFormFilter" class="com.mycomp.web.filter.LoginFormFilter"/>
 
     <!-- 设置为true, 即使用cglib继承的方式实现aop(false为使用jdk的接口动态代理), 因为控制器没有实现接口 -->
-    <!--    <aop:config proxy-target-class="true"/>-->
+    <aop:config proxy-target-class="true"/>
 
-    <!-- 使用第三方去扫描Shiro的注解 -->
-    <!--    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
-    <!--        <property name="securityManager" ref="securityManager"/>-->
-    <!--    </bean>-->
+    <!-- 使用第三方去扫描Shiro的注解(如@RequiresPermissions等) -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <!-- 注入安全管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 
+    <!--
+        配置凭证匹配器(CredentialsMatcher), 并注入到自定义Realm中;
+        加密参数:
+            a. 加密算法: md5
+            b: 散列次数: 2
+    -->
+    <bean id="credentialsMatcher"
+          class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <!-- 加密算法 -->
+        <property name="hashAlgorithmName" value="md5"/>
+        <!-- 散列次数 -->
+        <property name="hashIterations" value="2"/>
+    </bean>
+
+    <!-- 配置缓存管理器, 并注入到安全管理器中(SecurityManager) -->
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
+    </bean>
 </beans>

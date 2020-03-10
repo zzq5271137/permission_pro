@@ -32,7 +32,7 @@
                         <div class="lg-username input-item clearfix">
                             <i class="iconfont"></i>
                             <input type="text" value="空条承太郎" name="username"
-                                   placeholder="请用户名">
+                                   placeholder="请输入用户名">
                         </div>
                         <div class="lg-password input-item clearfix">
                             <i class="iconfont"></i>

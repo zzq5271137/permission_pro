@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <html>
 <head>
     <title>用户权限管理系统</title>

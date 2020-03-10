@@ -107,6 +107,20 @@
         where username = #{username}
     </select>
 
+    <select id="getRolesByEmployeeId" resultType="String">
+        select r.rnum
+        from employee_role_rel as err
+                 left join role r on err.rid = r.rid
+        where eid = #{id}
+    </select>
+
+    <select id="getPermissionsByEmployeeId" resultType="String">
+        select distinct p.presource
+        from role_permission_rel as rpr
+                 left join permission p on rpr.pid = p.pid
+        where rid in (select rid from employee_role_rel where eid = #{id})
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select e.id,
                e.username,

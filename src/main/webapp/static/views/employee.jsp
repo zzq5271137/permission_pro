@@ -32,7 +32,7 @@
                            name="username" placeholder="请输入用户名">
                 </td>
             </tr>
-            <tr>
+            <tr id="password">
                 <td>密码:</td>
                 <td>
                     <input type="text" class="easyui-validatebox" required="required"
@@ -90,12 +90,18 @@
 
 <%-- 工具栏 --%>
 <div id="tb">
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
-       id="add">添加</a>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
-       id="edit">编辑</a>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
-       id="remove">离职</a>
+    <shiro:hasPermission name="employee:add">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+           id="add">添加</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="employee:edit">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
+           id="edit">编辑</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="employee:delete">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
+           id="remove">离职</a>
+    </shiro:hasPermission>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true"
        id="reload">刷新</a>
 

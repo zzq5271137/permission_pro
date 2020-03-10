@@ -30,6 +30,7 @@ public class EmployeeController {
         return employeeService.getAllEmployees(queryVo);
     }
 
+    @RequiresPermissions("employee:add")
     @RequestMapping("/saveEmployee")
     @ResponseBody
     public AjaxRes saveEmployee(Employee employee) {
@@ -46,6 +47,7 @@ public class EmployeeController {
         return ajaxRes;
     }
 
+    @RequiresPermissions("employee:edit")
     @RequestMapping("/updateEmployee")
     @ResponseBody
     public AjaxRes updateEmployee(Employee employee) {
@@ -61,6 +63,7 @@ public class EmployeeController {
         return ajaxRes;
     }
 
+    @RequiresPermissions("employee:delete")
     @RequestMapping("/softDeleteEmployee")
     @ResponseBody
     public AjaxRes softDeleteEmployee(Long id) {
@@ -75,4 +78,5 @@ public class EmployeeController {
         }
         return ajaxRes;
     }
+
 }
