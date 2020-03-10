@@ -72,4 +72,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employeeMapper.softDeleteByPrimaryKey(id);
     }
 
+    @Override
+    public Employee getEmployeeByUsername(String username) {
+        return employeeMapper.getEmployeeByUsername(username);
+    }
+
 }

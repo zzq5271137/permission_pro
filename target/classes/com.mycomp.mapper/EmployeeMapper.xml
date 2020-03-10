@@ -101,6 +101,12 @@
         where eid = #{id}
     </delete>
 
+    <select id="getEmployeeByUsername" resultType="com.mycomp.domain.Employee">
+        select *
+        from employee
+        where username = #{username}
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select e.id,
                e.username,

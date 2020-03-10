@@ -5,6 +5,7 @@ import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
 import com.mycomp.service.IEmployeeService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
 
+    @RequiresPermissions("employee:index")
     @RequestMapping("/employee")
     public String employee() {
         return "employee";

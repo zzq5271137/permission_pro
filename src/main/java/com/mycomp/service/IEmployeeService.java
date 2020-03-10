@@ -13,4 +13,6 @@ public interface IEmployeeService {
     void updateEmployee(Employee employee);
 
     void softDeleteEmployee(Long id);
+
+    Employee getEmployeeByUsername(String username);
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+        Spring-Shiro整合
+    -->
+
+    <!-- 配置Shiro过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 设置安全管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+
+        <!--
+            配置认证登录的路径(配置loginUrl):
+            (1). 没有配置loginUrl时:
+                a. 默认情况下(没有配置loginUrl), 如果没有认证过, 会跳转到login.jsp;
+            (2). 配置过loginUrl时:
+                a. 如果发现过来的请求就是loginUrl的值, 就会直接去做认证(直接去找Realm做认证!), 不会发送loginUrl配置的值的请求;
+                b. 如果发现过来的请求不是loginUrl的值, 就会去判断当前用户有没有认证过, 如果没有认证过, 就会发送配置的loginUrl的值的请求;
+                c. 所以, 在你的登录页面中的登陆表单提交时, 提交的请求地址要与这里配置的loginUrl的值相同;
+        -->
+        <property name="loginUrl" value="/login"/>
+
+        <!-- 配置Shiro过滤器pattern -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 顺序很重要, 最后写 /** = authc -->
+                /static/** = anon   <!-- 不需要登录验证 -->
+                /login.jsp = anon   <!-- 不需要登录验证 -->
+                /logout = logout    <!-- 取消认证(注销)的路径 -->
+                /** = authc         <!-- 除指定请求外,其它所有的请求都需要身份验证 -->
+            </value>
+        </property>
+
+        <property name="filters">
+            <map>
+                <!-- 注入自定义表单监听过滤器, 用来返回认证结果 -->
+                <entry key="authc" value-ref="loginFormFilter"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 配置Shiro安全管理器(SecurityManager) -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 注入自定义Realm -->
+        <property name="realm" ref="employeeRealm"/>
+    </bean>
+
+    <!-- 配置自定义Realm, 并将其交由安全管理器(SecurityManager) -->
+    <bean id="employeeRealm" class="com.mycomp.web.realm.EmployeeRealm"/>
+
+    <!-- 配置自定义表单监听过滤器, 用来返回认证结果 -->
+    <bean id="loginFormFilter" class="com.mycomp.web.filter.LoginFormFilter"/>
+
+    <!-- 设置为true, 即使用cglib继承的方式实现aop(false为使用jdk的接口动态代理), 因为控制器没有实现接口 -->
+    <!--    <aop:config proxy-target-class="true"/>-->
+
+    <!-- 使用第三方去扫描Shiro的注解 -->
+    <!--    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+    <!--        <property name="securityManager" ref="securityManager"/>-->
+    <!--    </bean>-->
+
+</beans>

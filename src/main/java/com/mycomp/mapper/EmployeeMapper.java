@@ -20,6 +20,8 @@ public interface EmployeeMapper {
 
     void deleteEmployeeRoleRel(Long id);
 
+    Employee getEmployeeByUsername(String username);
+
     Employee selectByPrimaryKey(Long id);
 
     int deleteByPrimaryKey(Long id);

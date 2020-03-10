@@ -22,4 +22,7 @@
     <!-- 导入SpringMVC配置 -->
     <import resource="classpath:application-mvc.xml"/>
 
+    <!-- 导入Shiro配置 -->
+    <import resource="classpath:application-shiro.xml"/>
+
 </beans>
