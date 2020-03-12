@@ -22,7 +22,8 @@
         </association>
 
         <collection property="roles" ofType="com.mycomp.domain.Role" javaType="List"
-                    select="com.mycomp.mapper.RoleMapper.selectRolesByEmployeeId" column="id"/>
+                    select="com.mycomp.mapper.RoleMapper.selectRolesByEmployeeId" column="id"
+                    fetchType="eager"/>
     </resultMap>
 
     <!-- 搜索查询的sql片段 -->

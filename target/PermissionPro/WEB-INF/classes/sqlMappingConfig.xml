@@ -7,20 +7,20 @@
         <!-- 配置sql打印 -->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
 
-        <!-- lazyLoadingEnabled: 延迟加载的全局开关, 开启时, 所有关联对象都会延迟加载 -->
-        <!-- <setting name="lazyLoadingEnabled" value="true"/> -->
-
-        <!-- aggressiveLazyLoading: 当开启时, 任何方法的调用都会加载该对象的所有属性 -->
-        <!-- <setting name="aggressiveLazyLoading" value="false"/> -->
-
-        <!-- lazyLoadTriggerMethods: 指定哪些对象的方法触发一次延迟加载 -->
-        <!-- <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/> -->
-
         <!-- cacheEnabled: 全局开启或关闭配置文件中的所有映射器已配置的任何缓存(二级缓存), 默认为true -->
         <setting name="cacheEnabled" value="true"/>
 
         <!-- localCacheScope: 本地缓存(一级缓存)作用域, 取值: SESSION, STATEMENT, 默认为SESSION -->
         <setting name="localCacheScope" value="SESSION"/>
+
+        <!-- lazyLoadingEnabled: 延迟加载的全局开关, 开启时, 所有关联对象都会延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <!-- aggressiveLazyLoading: 当开启时, 任何方法的调用都会加载该对象的所有属性 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!-- lazyLoadTriggerMethods: 指定哪些对象的方法触发一次延迟加载 -->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
     </settings>
 
     <typeAliases>

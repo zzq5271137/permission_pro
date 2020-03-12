@@ -66,7 +66,8 @@
         <result column="url" jdbcType="VARCHAR" property="url"/>
 
         <collection property="children" ofType="com.mycomp.domain.Menu" javaType="List"
-                    select="com.mycomp.mapper.MenuMapper.getChildMenuList" column="id"/>
+                    select="com.mycomp.mapper.MenuMapper.getChildMenuList" column="id"
+                    fetchType="eager"/>
     </resultMap>
 
     <select id="getTreeData" resultMap="TresResultMap">
