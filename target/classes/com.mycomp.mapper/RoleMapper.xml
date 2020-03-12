@@ -58,4 +58,10 @@
         where eid = #{id}
     </select>
 
+    <select id="selectRolesByEmployeeId" resultType="com.mycomp.domain.Role">
+        select *
+        from role
+        where rid in (select rid from employee_role_rel where eid = #{id})
+    </select>
+
 </mapper>
