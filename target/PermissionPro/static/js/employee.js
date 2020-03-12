@@ -400,4 +400,15 @@ $(function () {
         // 重新加载数据表格
         $('#employee_dg').datagrid('load', {});
     });
+
+    // 监听Excel导入按钮
+    $('#excelimport').click(function () {
+
+    });
+
+    // 监听Excel导出按钮
+    $('#excelexport').click(function () {
+        window.open('/downloadExcel');
+    });
+
 });

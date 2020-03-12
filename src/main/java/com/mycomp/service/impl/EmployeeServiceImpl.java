@@ -5,11 +5,16 @@ import com.github.pagehelper.PageHelper;
 import com.mycomp.domain.*;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -127,6 +132,89 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<String> getPermissionsByEmployeeId(Long id) {
         return employeeMapper.getPermissionsByEmployeeId(id);
+    }
+
+    @Override
+    public HSSFWorkbook downloadExcel() {
+        // 从数据库中取出列表数据
+        List<Employee> allEmployees = employeeMapper.getAllEmployees();
+
+        // 创建Excel并将数据写入
+        return createExcel(allEmployees);
+    }
+
+    private HSSFWorkbook createExcel(List<Employee> allEmployees) {
+        // 创建工作簿(Excel文件)
+        HSSFWorkbook workbook = new HSSFWorkbook();
+
+        // 创建sheet(Excel分页)
+        HSSFSheet sheet = workbook.createSheet("员工数据");
+
+        // 创建表头(第0行, 及每一列的名称, 直接写死)
+        HSSFRow row0 = sheet.createRow(0);
+        row0.createCell(0).setCellValue("编号");
+        row0.createCell(1).setCellValue("姓名");
+        row0.createCell(2).setCellValue("入职时间");
+        row0.createCell(3).setCellValue("电话");
+        row0.createCell(4).setCellValue("邮箱");
+        row0.createCell(5).setCellValue("部门");
+        row0.createCell(6).setCellValue("是否是管理员");
+        row0.createCell(7).setCellValue("角色");
+        row0.createCell(8).setCellValue("状态");
+
+        // 取出每一个员工, 设置每一行数据
+        for (int i = 0; i < allEmployees.size(); i++) {
+            Employee employee = allEmployees.get(i);
+            HSSFRow row = sheet.createRow(i + 1);
+            row.createCell(0).setCellValue(employee.getId());
+            row.createCell(1).setCellValue(setRowIfNotNull(employee.getUsername()));
+            row.createCell(2).setCellValue(setRowInputtime(employee.getInputtime()));
+            row.createCell(3).setCellValue(setRowIfNotNull(employee.getTel()));
+            row.createCell(4).setCellValue(setRowIfNotNull(employee.getEmail()));
+            row.createCell(5).setCellValue(setRowDepartment(employee.getDepartment()));
+            row.createCell(6).setCellValue(setRowBoolean(employee.getAdmin(), "是", "否"));
+            row.createCell(7).setCellValue(setRowRoles(employee.getRoles()));
+            row.createCell(8).setCellValue(setRowBoolean(employee.getState(), "在职", "离职"));
+        }
+
+        return workbook;
+    }
+
+    private String setRowIfNotNull(String target) {
+        return target == null ? "" : target;
+    }
+
+    private String setRowBoolean(Boolean admin, String succStr, String failStr) {
+        return admin ? succStr : failStr;
+    }
+
+    private String setRowInputtime(Date inputtime) {
+        if (inputtime == null) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(inputtime);
+    }
+
+    private String setRowDepartment(Department department) {
+        if (department == null) {
+            return "";
+        }
+        return department.getName();
+    }
+
+    private String setRowRoles(List<Role> roles) {
+        if (roles == null || roles.size() == 0) {
+            return "";
+        }
+        StringBuilder rolesRes = new StringBuilder();
+        for (int i = 0; i < roles.size(); i++) {
+            rolesRes.append(roles.get(i).getRname());
+            if (i != roles.size() - 1) {
+                rolesRes.append(",");
+            }
+        }
+        return rolesRes.toString();
     }
 
 }

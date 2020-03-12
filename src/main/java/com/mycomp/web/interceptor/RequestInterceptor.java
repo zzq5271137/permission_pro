@@ -1,4 +1,4 @@
-package com.mycomp.interceptor;
+package com.mycomp.web.interceptor;
 
 import com.mycomp.util.RequestUtil;
 import org.springframework.web.servlet.HandlerInterceptor;

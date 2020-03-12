@@ -5,11 +5,16 @@ import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
 import com.mycomp.service.IEmployeeService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class EmployeeController {
@@ -51,4 +56,16 @@ public class EmployeeController {
         return employeeService.softDeleteEmployee(id);
     }
 
+    @RequestMapping("/downloadExcel")
+    @ResponseBody
+    public void downloadExcel(HttpServletResponse response) {
+        HSSFWorkbook workbook = employeeService.downloadExcel();
+        String fileName = new String("员工数据表.xls".getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        response.setHeader("content-Disposition", "attachment;filename=" + fileName);
+        try {
+            workbook.write(response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

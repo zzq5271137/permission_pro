@@ -4,6 +4,7 @@ import com.mycomp.domain.AjaxRes;
 import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface IEmployeeService {
     List<String> getRolesByEmployeeId(Long id);
 
     List<String> getPermissionsByEmployeeId(Long id);
+
+    HSSFWorkbook downloadExcel();
 }
