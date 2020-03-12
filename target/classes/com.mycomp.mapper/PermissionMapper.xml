@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycomp.mapper.PermissionMapper">
+    <cache eviction="LRU" flushInterval="1000" readOnly="false" size="100"/>
 
     <resultMap id="BaseResultMap" type="com.mycomp.domain.Permission">
         <id column="pid" jdbcType="BIGINT" property="pid"/>

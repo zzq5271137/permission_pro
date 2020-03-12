@@ -17,11 +17,10 @@
         <!-- <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/> -->
 
         <!-- cacheEnabled: 全局开启或关闭配置文件中的所有映射器已配置的任何缓存(二级缓存), 默认为true -->
-        <!-- <setting name="cacheEnabled" value="true"/> -->
+        <setting name="cacheEnabled" value="true"/>
 
         <!-- localCacheScope: 本地缓存(一级缓存)作用域, 取值: SESSION, STATEMENT, 默认为SESSION -->
-        <!-- <setting name="localCacheScope" value="SESSION"/> -->
-
+        <setting name="localCacheScope" value="SESSION"/>
     </settings>
 
     <typeAliases>
