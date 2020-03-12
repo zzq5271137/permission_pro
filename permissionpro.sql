@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 12/03/2020 18:09:37
+ Date: 12/03/2020 22:03:15
 */
 
 SET NAMES utf8mb4;
@@ -209,5 +209,18 @@ INSERT INTO `role_permission_rel` VALUES (1, 9);
 INSERT INTO `role_permission_rel` VALUES (1, 10);
 INSERT INTO `role_permission_rel` VALUES (1, 11);
 INSERT INTO `role_permission_rel` VALUES (1, 12);
+
+-- ----------------------------
+-- Table structure for systemlog
+-- ----------------------------
+DROP TABLE IF EXISTS `systemlog`;
+CREATE TABLE `systemlog`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `optime` datetime(0) NULL DEFAULT NULL,
+  `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `func` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

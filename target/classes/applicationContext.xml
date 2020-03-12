@@ -25,4 +25,19 @@
     <!-- 导入Shiro配置 -->
     <import resource="classpath:application-shiro.xml"/>
 
+    <!--
+        系统日志的aop配置
+    -->
+    <bean id="systemlogAspect" class="com.mycomp.aspect.SystemlogAspect"/>
+    <!--
+        <aop:config>
+            <aop:pointcut expression="execution(* com.mycomp.service.*.*(..))" id="servicePoint"/>
+            <aop:aspect ref="systemlogAspect">
+                <aop:after method="writeLog" pointcut-ref="servicePoint"/>
+            </aop:aspect>
+        </aop:config>
+    -->
+    <!-- 也可以使用注解的形式配置aop, 详见SystemlogAspect.java -->
+    <aop:aspectj-autoproxy/>
+
 </beans>
