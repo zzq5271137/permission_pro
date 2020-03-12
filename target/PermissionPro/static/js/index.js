@@ -23,10 +23,12 @@ $(function () {
         },
         onLoadSuccess: function (node, data) {
             if (data.length > 0) {
-                // 找到第一个元素
-                let n = $('#tree').tree('find', data[0].children[0].id);
-                // 调用选中事件, target参数表示该节点的DOM对象
-                $('#tree').tree('select', n.target);
+                if (data[0].children[0] !== null && data[0].children[0].id !== null) {
+                    // 找到第一个元素
+                    let n = $('#tree').tree('find', data[0].children[0].id);
+                    // 调用选中事件, target参数表示该节点的DOM对象
+                    $('#tree').tree('select', n.target);
+                }
             }
         }
     });

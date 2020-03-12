@@ -22,7 +22,16 @@ $(function () {
                 formatter: function (value, row, index) {
                     return value ? value.text : '';
                 }
-            }
+            },
+            {
+                field: 'permission',
+                title: '所需权限',
+                width: 100,
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return value ? value.pname : '';
+                }
+            },
         ]],
         fit: true,
         fitColumns: true,
@@ -51,9 +60,27 @@ $(function () {
         }
     });
 
+    $('#permission').combobox({
+        width: 160,
+        panelHeight: 'auto',
+        editable: false,
+        url: '/permissionList',
+        textField: 'pname',
+        valueField: 'pid',
+        onLoadSuccess: function () {
+            $('#permission').each(function (index, element) {
+                let span = $(this).siblings('span')[index];
+                let targetInput = $(span).find('input:first');
+                if (targetInput) {
+                    $(targetInput).attr('placeholder', $(this).attr('placeholder'));
+                }
+            });
+        }
+    });
+
     $('#dialog').dialog({
         width: 300,
-        height: 230,
+        height: 250,
         modal: true,
         resizable: true,
         closed: true,
@@ -122,6 +149,9 @@ $(function () {
 
         if (rowData['parent']) {
             rowData['parent.id'] = rowData['parent'].id;
+        }
+        if (rowData['permission']) {
+            rowData['permission.pid'] = rowData['permission'].pid;
         }
         $('#menuForm').form('load', rowData);
     });

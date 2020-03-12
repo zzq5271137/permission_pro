@@ -2,16 +2,16 @@ package com.mycomp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.mycomp.domain.AjaxRes;
-import com.mycomp.domain.Menu;
-import com.mycomp.domain.MenuQueryVo;
-import com.mycomp.domain.PageListRes;
+import com.mycomp.domain.*;
 import com.mycomp.mapper.MenuMapper;
 import com.mycomp.service.IMenuService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -97,7 +97,45 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public List<Menu> getTreeData() {
-        return menuMapper.getTreeData();
+        List<Menu> treeData = menuMapper.getTreeData();
+
+        /*
+         * 权限控制, 根据当前用户的角色和权限, 返回不同的菜单目录树;
+         * 通过Shiro中的SecurityUtils去获得当前用户, 从而进一步获取相关信息(该用户的角色和权限等);
+         */
+        Subject subject = SecurityUtils.getSubject();
+        Employee employee = (Employee) subject.getPrincipal();
+        // 判断其是否为管理员
+        if (employee.getAdmin() == null || !employee.getAdmin()) {
+            // 如果不是管理员, 需要做权限检查(根据当前用户的权限, 对treeData进行修改)
+            checkPermissions(treeData);
+        }
+
+        return treeData;
+    }
+
+    private void checkPermissions(List<Menu> treeData) {
+        // 获取主体(当前用户)
+        Subject subject = SecurityUtils.getSubject();
+
+        // 遍历所有菜单及子菜单(必须使用迭代器, 因为要一边校验一边删除)
+        Iterator<Menu> iterator = treeData.iterator();
+        while (iterator.hasNext()) {
+            Menu menu = iterator.next();
+
+            // 先校验自己
+            if (menu.getPermission() != null) {
+                String presource = menu.getPermission().getPresource();
+                if (presource != null && !subject.isPermitted(presource)) {
+                    iterator.remove();
+                }
+            }
+
+            // 判断是否有子菜单, 如果有, 继续校验(递归调用)
+            if (menu.getChildren().size() > 0) {
+                checkPermissions(menu.getChildren());
+            }
+        }
     }
 
 }

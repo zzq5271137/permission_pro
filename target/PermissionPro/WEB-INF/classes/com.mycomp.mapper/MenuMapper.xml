@@ -15,6 +15,12 @@
             <result column="text" property="text"/>
             <result column="url" property="url"/>
         </association>
+
+        <association property="permission" javaType="com.mycomp.domain.Permission">
+            <id column="pid" property="pid"/>
+            <result column="pname" property="pname"/>
+            <result column="presource" property="presource"/>
+        </association>
     </resultMap>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -23,15 +29,19 @@
                m1.url,
                m2.id   as parent_id,
                m2.text as parent_text,
-               m2.url  as parent_url
+               m2.url  as parent_url,
+               p.pid,
+               p.pname,
+               p.presource
         from menu as m1
                  left join menu m2 on m1.parent_id = m2.id
+                 left join permission p on m1.permission_id = p.pid
         order by m1.id desc
     </select>
 
     <insert id="insert" parameterType="com.mycomp.domain.Menu">
-        insert into menu (id, text, url, parent_id)
-        values (#{id}, #{text}, #{url}, #{parent.id})
+        insert into menu (id, text, url, parent_id, permission_id)
+        values (#{id}, #{text}, #{url}, #{parent.id}, #{permission.pid})
     </insert>
 
     <select id="getParentIdByPrimaryKey" resultType="Long">
@@ -42,9 +52,10 @@
 
     <update id="updateByPrimaryKey" parameterType="com.mycomp.domain.Menu">
         update menu
-        set text      = #{text},
-            url       = #{url},
-            parent_id = #{parent.id}
+        set text          = #{text},
+            url           = #{url},
+            parent_id     = #{parent.id},
+            permission_id = #{permission.pid}
         where id = #{id}
     </update>
 
@@ -65,6 +76,12 @@
         <result column="text" jdbcType="VARCHAR" property="text"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
 
+        <association property="permission" javaType="com.mycomp.domain.Permission">
+            <id column="pid" property="pid"/>
+            <result column="pname" property="pname"/>
+            <result column="presource" property="presource"/>
+        </association>
+
         <collection property="children" ofType="com.mycomp.domain.Menu" javaType="List"
                     select="com.mycomp.mapper.MenuMapper.getChildMenuList" column="id"
                     fetchType="eager"/>
@@ -72,14 +89,16 @@
 
     <select id="getTreeData" resultMap="TresResultMap">
         select *
-        from menu
-        where parent_id is null
+        from menu as m
+                 left join permission p on m.permission_id = p.pid
+        where m.parent_id is null
     </select>
 
     <select id="getChildMenuList" resultMap="TresResultMap">
         select *
-        from menu
-        where parent_id = #{id}
+        from menu as m
+                 left join permission p on m.permission_id = p.pid
+        where m.parent_id = #{id}
     </select>
 
 </mapper>

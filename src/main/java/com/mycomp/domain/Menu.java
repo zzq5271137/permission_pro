@@ -18,5 +18,6 @@ public class Menu implements Serializable {
     private String url;
     private Menu parent;
     private List<Menu> children = new ArrayList<>();
+    private Permission permission;
 
 }
