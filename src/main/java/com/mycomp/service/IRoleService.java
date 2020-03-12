@@ -1,5 +1,6 @@
 package com.mycomp.service;
 
+import com.mycomp.domain.AjaxRes;
 import com.mycomp.domain.PageListRes;
 import com.mycomp.domain.Role;
 import com.mycomp.domain.RoleQueryVo;
@@ -10,11 +11,11 @@ public interface IRoleService {
 
     PageListRes getRolelist(RoleQueryVo queryVo);
 
-    void saveRole(Role role);
+    AjaxRes saveRole(Role role);
 
-    void updateRole(Role role);
+    AjaxRes updateRole(Role role);
 
-    void deleteRole(Long rid);
+    AjaxRes deleteRole(Long rid);
 
     List<Role> getAllRoles();
 

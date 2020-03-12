@@ -15,7 +15,7 @@ public interface RoleMapper {
 
     void deleteRolePermissionRel(Long rid);
 
-    int updateByPrimaryKey(Role record);
+    void updateByPrimaryKey(Role record);
 
     void deleteEmployeeRoleRel(Long rid);
 
@@ -23,5 +23,4 @@ public interface RoleMapper {
 
     List<Long> getRolesByEmployeeId(Long id);
 
-    Role selectByPrimaryKey(Long rid);
 }

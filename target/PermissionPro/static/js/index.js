@@ -1,6 +1,7 @@
 $(function () {
     $('#tree').tree({
-        url: 'static/tree.json',
+        // url: 'static/tree.json',
+        url: '/getTreeData',
         lines: true,
         onSelect: function (node) {
             // 在添加之前判断该标签是否存在
@@ -21,11 +22,10 @@ $(function () {
             }
         },
         onLoadSuccess: function (node, data) {
-            // console.log(data[0].children[0].id);
             if (data.length > 0) {
                 // 找到第一个元素
                 let n = $('#tree').tree('find', data[0].children[0].id);
-                // 调用选中事件
+                // 调用选中事件, target参数表示该节点的DOM对象
                 $('#tree').tree('select', n.target);
             }
         }

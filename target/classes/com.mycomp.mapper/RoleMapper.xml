@@ -13,6 +13,7 @@
     <select id="selectAll" resultMap="BaseResultMap">
         select rid, rnum, rname
         from role
+        order by rid desc
     </select>
 
     <insert id="insert" parameterType="com.mycomp.domain.Role"
@@ -55,12 +56,6 @@
         select rid
         from employee_role_rel
         where eid = #{id}
-    </select>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select rid, rnum, rname
-        from role
-        where rid = #{rid,jdbcType=BIGINT}
     </select>
 
 </mapper>

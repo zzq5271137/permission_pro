@@ -23,28 +23,4 @@
                       where rid = #{rid})
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete
-        from permission
-        where pid = #{pid,jdbcType=BIGINT}
-    </delete>
-
-    <insert id="insert" parameterType="com.mycomp.domain.Permission">
-        insert into permission (pid, pname, presource)
-        values (#{pid,jdbcType=BIGINT}, #{pname,jdbcType=VARCHAR}, #{presource,jdbcType=VARCHAR})
-    </insert>
-
-    <update id="updateByPrimaryKey" parameterType="com.mycomp.domain.Permission">
-        update permission
-        set pname     = #{pname,jdbcType=VARCHAR},
-            presource = #{presource,jdbcType=VARCHAR}
-        where pid = #{pid,jdbcType=BIGINT}
-    </update>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select pid, pname, presource
-        from permission
-        where pid = #{pid,jdbcType=BIGINT}
-    </select>
-
 </mapper>

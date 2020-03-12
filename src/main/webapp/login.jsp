@@ -8,8 +8,49 @@
     <link href="./static/css/login.css" rel="stylesheet">
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/static/plugins/easyui/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            function login() {
+                // 使用表单序列化, 提取登录参数
+                // 表单的参数名最好是叫username和password, 因为shiro默认将username和password封装成token传入Realm方法中
+                let params = $('#loginform').serialize();
 
+                // 发送请求, 做登录认证
+                let url = '/login'; // 这里的请求地址要与shiro配置文件中loginUrl配置的值相同, 详见application-shiro.xml
+                // 通过Ajax发送请求, 是没有办法在内部跳转服务器当中的请求的(即不能在LoginFormFilter中进行跳转), 只能通过在浏览器中跳转
+                $.post(url, params, function (data) {
+                    // 把json格式字符串转成json对象
+                    data = $.parseJSON(data);
+
+                    if (data.success) {
+                        // 认证成功, 跳转到首页
+                        alert(data.msg);
+                        window.location.href = '/index.jsp';
+                    } else {
+                        alert(data.msg);
+                    }
+                });
+            }
+
+            $('#loginBtn').click(function () {
+                login();
+            });
+
+            $('[name="username"]').keydown(function (e) {
+                if (e.keyCode === 13 || e.keyCode === 108) {
+                    login();
+                }
+            });
+
+            $('[name="password"]').keydown(function (e) {
+                if (e.keyCode === 13 || e.keyCode === 108) {
+                    login();
+                }
+            });
+        });
+    </script>
 </head>
+
 <body class="white">
 <div class="login-hd">
     <div class="left-bg"></div>
@@ -68,48 +109,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        function login() {
-            // 使用表单序列化, 提取登录参数
-            // 表单的参数名最好是叫username和password, 因为shiro默认将username和password封装成token传入Realm方法中
-            let params = $('#loginform').serialize();
-
-            // 发送请求, 做登录认证
-            let url = '/login'; // 这里的请求地址要与shiro配置文件中loginUrl配置的值相同, 详见application-shiro.xml
-            // 通过Ajax发送请求, 是没有办法在内部跳转服务器当中的请求的(即不能在LoginFormFilter中进行跳转), 只能通过在浏览器中跳转
-            $.post(url, params, function (data) {
-                // 把json格式字符串转成json对象
-                data = $.parseJSON(data);
-
-                if (data.success) {
-                    // 认证成功, 跳转到首页
-                    alert(data.msg);
-                    window.location.href = '/index.jsp';
-                } else {
-                    alert(data.msg);
-                }
-            });
-        }
-
-        $('#loginBtn').click(function () {
-            login();
-        });
-
-        $('[name="username"]').keydown(function (e) {
-            if (e.keyCode === 13 || e.keyCode === 108) {
-                login();
-            }
-        });
-
-        $('[name="password"]').keydown(function (e) {
-            if (e.keyCode === 13 || e.keyCode === 108) {
-                login();
-            }
-        });
-    });
-</script>
 
 </body>
 </html>

@@ -2,10 +2,7 @@ package com.mycomp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.mycomp.domain.Employee;
-import com.mycomp.domain.EmployeelistQueryVo;
-import com.mycomp.domain.PageListRes;
-import com.mycomp.domain.Role;
+import com.mycomp.domain.*;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -44,46 +41,77 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public void saveEmployee(Employee employee) {
-        /*
-         * 保存之前, 需要对密码进行加密处理, 加密参数如下:
-         * a. 加密算法: md5
-         * b: 散列次数: 2
-         * c. 盐: 用户名
-         *
-         * 在Shiro做登录认证时, 也需要加密处理:
-         * (1). 在配置文件中配置一个凭证匹配器, 告知其加密算法和散列次数(详见application-shiro.xml);
-         * (2). 在自定义Realm中加入盐(详见EmployeeRealm.java);
-         */
-        Md5Hash pwdMd5Hash = new Md5Hash(employee.getPassword(), employee.getUsername(), 2);
-        employee.setPassword(pwdMd5Hash.toString());
+    public AjaxRes saveEmployee(Employee employee) {
+        AjaxRes ajaxRes = new AjaxRes();
+        try {
+            employee.setState(true);
 
-        // 1. 保存员工
-        employeeMapper.insert(employee);
+            /*
+             * 保存之前, 需要对密码进行加密处理, 加密参数如下:
+             * a. 加密算法: md5
+             * b: 散列次数: 2
+             * c. 盐: 用户名
+             *
+             * 在Shiro做登录认证时, 也需要加密处理:
+             * (1). 在配置文件中配置一个凭证匹配器, 告知其加密算法和散列次数(详见application-shiro.xml);
+             * (2). 在自定义Realm中加入盐(详见EmployeeRealm.java);
+             */
+            Md5Hash pwdMd5Hash = new Md5Hash(employee.getPassword(), employee.getUsername(), 2);
+            employee.setPassword(pwdMd5Hash.toString());
 
-        // 2. 保存员工与角色的关系
-        for (Role role : employee.getRoles()) {
-            employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+            // 1. 保存员工
+            employeeMapper.insert(employee);
+
+            // 2. 保存员工与角色的关系
+            for (Role role : employee.getRoles()) {
+                employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+            }
+
+            ajaxRes.setSuccess(true);
+            ajaxRes.setMsg("员工保存成功！");
+        } catch (Exception e) {
+            ajaxRes.setSuccess(false);
+            ajaxRes.setMsg("员工保存失败...");
         }
+        return ajaxRes;
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        // 1. 先打破员工与角色原来的关系
-        employeeMapper.deleteEmployeeRoleRel(employee.getId());
+    public AjaxRes updateEmployee(Employee employee) {
+        AjaxRes ajaxRes = new AjaxRes();
+        try {
+            // 1. 先打破员工与角色原来的关系
+            employeeMapper.deleteEmployeeRoleRel(employee.getId());
 
-        // 2. 更新员工信息
-        employeeMapper.updateByPrimaryKey(employee);
+            // 2. 更新员工信息
+            employeeMapper.updateByPrimaryKey(employee);
 
-        // 3. 再重新建立关系
-        for (Role role : employee.getRoles()) {
-            employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+            // 3. 再重新建立关系
+            for (Role role : employee.getRoles()) {
+                employeeMapper.insertEmployeeRoleRel(employee.getId(), role.getRid());
+            }
+
+            ajaxRes.setSuccess(true);
+            ajaxRes.setMsg("员工更新成功！");
+        } catch (Exception e) {
+            ajaxRes.setSuccess(false);
+            ajaxRes.setMsg("员工更新失败...");
         }
+        return ajaxRes;
     }
 
     @Override
-    public void softDeleteEmployee(Long id) {
-        employeeMapper.softDeleteByPrimaryKey(id);
+    public AjaxRes softDeleteEmployee(Long id) {
+        AjaxRes ajaxRes = new AjaxRes();
+        try {
+            employeeMapper.softDeleteByPrimaryKey(id);
+            ajaxRes.setSuccess(true);
+            ajaxRes.setMsg("已将该员工设置为离职状态！");
+        } catch (Exception e) {
+            ajaxRes.setSuccess(false);
+            ajaxRes.setMsg("员工离职失败...");
+        }
+        return ajaxRes;
     }
 
     @Override

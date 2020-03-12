@@ -26,7 +26,4 @@ public interface EmployeeMapper {
 
     List<String> getPermissionsByEmployeeId(Long id);
 
-    Employee selectByPrimaryKey(Long id);
-
-    int deleteByPrimaryKey(Long id);
 }

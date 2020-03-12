@@ -35,48 +35,21 @@ public class RoleController {
     @RequestMapping("/saveRole")
     @ResponseBody
     public AjaxRes saveRole(Role role) {
-        AjaxRes ajaxRes = new AjaxRes();
-        try {
-            roleService.saveRole(role);
-            ajaxRes.setSuccess(true);
-            ajaxRes.setMsg("保存成功！");
-        } catch (Exception e) {
-            ajaxRes.setSuccess(false);
-            ajaxRes.setMsg("保存失败...");
-        }
-        return ajaxRes;
+        return roleService.saveRole(role);
     }
 
     @RequiresPermissions("role:edit")
     @RequestMapping("/updateRole")
     @ResponseBody
     public AjaxRes updateRole(Role role) {
-        AjaxRes ajaxRes = new AjaxRes();
-        try {
-            roleService.updateRole(role);
-            ajaxRes.setSuccess(true);
-            ajaxRes.setMsg("更新成功！");
-        } catch (Exception e) {
-            ajaxRes.setSuccess(false);
-            ajaxRes.setMsg("更新失败...");
-        }
-        return ajaxRes;
+        return roleService.updateRole(role);
     }
 
     @RequiresPermissions("role:delete")
     @RequestMapping("/deleteRole")
     @ResponseBody
     public AjaxRes deleteRole(Long rid) {
-        AjaxRes ajaxRes = new AjaxRes();
-        try {
-            roleService.deleteRole(rid);
-            ajaxRes.setSuccess(true);
-            ajaxRes.setMsg("删除成功！");
-        } catch (Exception e) {
-            ajaxRes.setSuccess(false);
-            ajaxRes.setMsg("删除失败...");
-        }
-        return ajaxRes;
+        return roleService.deleteRole(rid);
     }
 
     @RequestMapping("/getAllRoles")

@@ -37,8 +37,10 @@
         <input type="hidden" name="rid">
         <table align="center" style="border-spacing: 20px 30px">
             <tr align="center">
-                <td>角色编号: <input type="text" name="rnum" class="easyui-validatebox"></td>
-                <td>角色名称: <input type="text" name="rname" class="easyui-validatebox"></td>
+                <td>角色编号: <input type="text" name="rnum" class="easyui-validatebox"
+                                 required="required" placeholder="请输入角色编号"></td>
+                <td>角色名称: <input type="text" name="rname" class="easyui-validatebox"
+                                 required="required" placeholder="请输入角色名称"></td>
             </tr>
             <tr>
                 <td>

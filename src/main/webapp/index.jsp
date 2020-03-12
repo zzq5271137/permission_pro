@@ -20,7 +20,8 @@
     <img src="${pageContext.request.contextPath}/static/images/main_logo.png" alt="">
 
     <div style="position: absolute; right: 50px; top: 30px;">
-        <img src="./static/images/user.png" style="vertical-align: middle; margin-right: 10px;">
+        <img src="./static/images/user.png" style="vertical-align: middle; margin-right: 10px;"
+             alt="信息管理系统">
 
         <span style="color: white; font-size: 20px; margin-right: 5px;">
             <%-- 显示当前登录用户名 --%>

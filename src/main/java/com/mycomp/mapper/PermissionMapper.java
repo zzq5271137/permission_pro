@@ -10,11 +10,4 @@ public interface PermissionMapper {
 
     List<Permission> selectPermissionsByRoleId(Long rid);
 
-    int deleteByPrimaryKey(Long pid);
-
-    int insert(Permission record);
-
-    int updateByPrimaryKey(Permission record);
-
-    Permission selectByPrimaryKey(Long pid);
 }
