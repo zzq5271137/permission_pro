@@ -5,6 +5,7 @@ import com.mycomp.domain.Employee;
 import com.mycomp.domain.EmployeelistQueryVo;
 import com.mycomp.domain.PageListRes;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface IEmployeeService {
     List<String> getPermissionsByEmployeeId(Long id);
 
     HSSFWorkbook downloadExcel();
+
+    AjaxRes uploadEmpExcel(MultipartFile excel);
+
 }

@@ -401,14 +401,59 @@ $(function () {
         $('#employee_dg').datagrid('load', {});
     });
 
-    // 监听Excel导入按钮
-    $('#excelimport').click(function () {
-
-    });
-
     // 监听Excel导出按钮
     $('#excelexport').click(function () {
-        window.open('/downloadExcel');
+        window.open('/downloadEmpExcel');
+    });
+
+    // 监听Excel导入按钮
+    $('#excelimport').click(function () {
+        $('#excelUploadForm').form('clear');
+        $('#excelUploadDialog').dialog('open');
+    });
+
+    // Excel上传界面对话框
+    $('#excelUploadDialog').dialog({
+        width: 300,
+        height: 180,
+        title: '导入Excel',
+        modal: true,
+        buttons: [
+            {
+                text: '保存',
+                iconCls: 'icon-save',
+                handler: function () {
+                    $('#excelUploadForm').form('submit', {
+                        url: '/uploadEmpExcel',
+                        success: function (data) {
+                            if (typeof data === 'string') {
+                                data = $.parseJSON(data);
+                            }
+
+                            if (data.success) {
+                                $.messager.alert('温馨提示', data.msg);
+                                $('#excelUploadDialog').dialog('close');
+                                $('#employee_dg').datagrid('reload');
+                            } else {
+                                $.messager.alert('温馨提示', data.msg);
+                            }
+                        }
+                    });
+                }
+            }, {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#excelUploadDialog').dialog('close');
+                }
+            }
+        ],
+        closed: true
+    });
+
+    // 监听下载Excel模板链接
+    $('#downloadTpl').click(function () {
+        window.open('/downloadEmpExcelTemplate')
     });
 
 });

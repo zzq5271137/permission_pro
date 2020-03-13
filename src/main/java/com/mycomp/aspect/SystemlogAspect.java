@@ -48,8 +48,12 @@ public class SystemlogAspect {
         systemlog.setFunc(func);
 
         // 记录方法参数(转成json格式)
-        String params = new ObjectMapper().writeValueAsString(joinPoint.getArgs());
-        systemlog.setParams(params);
+        if (!"uploadEmpExcel".equals(methodName)
+                && !"resolveExcel".equals(methodName)
+                && !"getCellValue".equals(methodName)) {
+            String params = new ObjectMapper().writeValueAsString(joinPoint.getArgs());
+            systemlog.setParams(params);
+        }
 
         System.out.println("系统日志生成完毕: " + systemlog);
 

@@ -5,13 +5,16 @@ import com.github.pagehelper.PageHelper;
 import com.mycomp.domain.*;
 import com.mycomp.mapper.EmployeeMapper;
 import com.mycomp.service.IEmployeeService;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -215,6 +218,61 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
         }
         return rolesRes.toString();
+    }
+
+    @Override
+    public AjaxRes uploadEmpExcel(MultipartFile excel) {
+        AjaxRes ajaxRes = new AjaxRes();
+        try {
+            resolveExcel(excel);
+            ajaxRes.setSuccess(true);
+            ajaxRes.setMsg("员工文件导入成功！");
+        } catch (Exception e) {
+            ajaxRes.setSuccess(false);
+            ajaxRes.setMsg("员工文件导入失败...");
+            e.printStackTrace();
+        }
+        return ajaxRes;
+    }
+
+    private void resolveExcel(MultipartFile excel) throws Exception {
+        // 将MultipartFile转换成HSSFWorkbook工作簿
+        HSSFWorkbook workbook = new HSSFWorkbook(excel.getInputStream());
+
+        // 解析工作簿
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        int lastRowNum = sheet.getLastRowNum();
+        for (int i = 1; i <= lastRowNum; i++) {
+            HSSFRow empRow = sheet.getRow(i);
+            Employee employee = new Employee();
+            employee.setState(true);
+            employee.setId(((Double) getCellValue(empRow.getCell(0))).longValue());
+            employee.setUsername((String) getCellValue(empRow.getCell(1)));
+            employee.setInputtime((Date) getCellValue(empRow.getCell(2)));
+            employee.setTel(((Double) getCellValue(empRow.getCell(3))).longValue() + "");
+            employee.setEmail((String) getCellValue(empRow.getCell(4)));
+
+            // 存入数据库
+            employeeMapper.insert(employee);
+        }
+    }
+
+    private Object getCellValue(HSSFCell cell) {
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getRichStringCellValue().getString();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue();
+                } else {
+                    return cell.getNumericCellValue();
+                }
+            case BOOLEAN:
+                return cell.getBooleanCellValue();
+            case FORMULA:
+                return cell.getCellFormula();
+        }
+        return cell;
     }
 
 }

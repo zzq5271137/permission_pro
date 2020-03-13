@@ -109,10 +109,25 @@
     <input type="text" name="keyword" style="width: 200px; height: 30px; padding-left: 5px;">
     <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="searchbtn">搜索</a>
 
-    <%-- Excel导入按钮 --%>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" id="excelimport">导入</a>
     <%-- Excel导出按钮 --%>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" id="excelexport">导出</a>
+    <%-- Excel导入按钮 --%>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" id="excelimport">导入</a>
+</div>
+
+<div id="excelUploadDialog">
+    <form method="post" enctype="multipart/form-data" id="excelUploadForm">
+        <table>
+            <tr>
+                <td><a href="javascript:void(0);" id="downloadTpl"
+                       style="padding-top: 10px; margin-left: 7px;">下载模板</a></td>
+            </tr>
+            <tr>
+                <td><input type="file" name="excel"
+                           style="width: 180px; margin-top: 10px; margin-left: 5px;"></td>
+            </tr>
+        </table>
+    </form>
 </div>
 
 </body>
