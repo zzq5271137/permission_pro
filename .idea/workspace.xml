@@ -140,6 +140,10 @@
         <path>
           <item name="Found 26 services " type="fcff1e1b:RestServiceStructure$RootNode" />
         </path>
+        <path>
+          <item name="Found 26 services " type="fcff1e1b:RestServiceStructure$RootNode" />
+          <item name="PermissionPro" type="c588b436:RestServiceStructure$ProjectNode" />
+        </path>
       </expand>
       <select />
     </treeState>
@@ -447,6 +451,7 @@
       <workItem from="1584161940652" duration="245000" />
       <workItem from="1584162189534" duration="49000" />
       <workItem from="1584163726532" duration="26000" />
+      <workItem from="1584167021422" duration="74000" />
     </task>
     <servers />
   </component>
